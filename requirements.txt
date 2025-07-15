@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+tensorflow==2.14.0
+pandas
+joblib
+openpyxl          # 批量预测时写 Excel

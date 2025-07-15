@@ -1,0 +1,21 @@
+{
+  "feature_cols": [
+    "CHOKE_SIZE(t)",
+    "ON_STREAM_HRS(t)",
+    "Pmin(t)",
+    "Pmax(t)",
+    "Tmin(t)",
+    "Tmax(t)",
+    "BORE_water_VOL(t)",
+    "BORE_GAS_VOL(t)"
+  ],
+  "window_size": 8,
+  "steps_ahead": 1,
+  "best_params": {
+    "epochs": 500,
+    "layers": 1,
+    "units": 160,
+    "batch": 4,
+    "window": 8
+  }
+}
