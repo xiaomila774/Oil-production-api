@@ -1,0 +1,119 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "FY102HF Forecast API",
+    "version": "1.0.0",
+    "description": "API for predicting oil production based on 8 engineered features"
+  },
+  "paths": {
+    "/predict": {
+      "post": {
+        "summary": "Predict oil production rate from a single record",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CHOKE_SIZE_t": {
+                    "type": "number"
+                  },
+                  "ON_STREAM_HRS_t": {
+                    "type": "number"
+                  },
+                  "Pmin_t": {
+                    "type": "number"
+                  },
+                  "Pmax_t": {
+                    "type": "number"
+                  },
+                  "Tmin_t": {
+                    "type": "number"
+                  },
+                  "Tmax_t": {
+                    "type": "number"
+                  },
+                  "BORE_water_VOL_t": {
+                    "type": "number"
+                  },
+                  "BORE_GAS_VOL_t": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "CHOKE_SIZE_t",
+                  "ON_STREAM_HRS_t",
+                  "Pmin_t",
+                  "Pmax_t",
+                  "Tmin_t",
+                  "Tmax_t",
+                  "BORE_water_VOL_t",
+                  "BORE_GAS_VOL_t"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Predicted oil rate",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pred_oil_rate": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/batch_predict": {
+      "post": {
+        "summary": "Batch predict oil rate from uploaded CSV or Excel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "CSV or Excel file with 8 feature columns"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "File with prediction column",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
